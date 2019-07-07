@@ -1,0 +1,2 @@
+# EditorWithJavaSwing
+It's a simply editor written by JavaSwing framework, and it's my homework of java programming course. And when I was writting, on account of not familier whih java, so the it's just a single file, and don't compliance with development specifications at the meantime. the comment inside also has chinese and English because I edited it in two different editor. In the end, I hope it's useful for u.
