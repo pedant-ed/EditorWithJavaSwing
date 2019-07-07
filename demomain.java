@@ -1,5 +1,3 @@
-//package EditorTools;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -27,8 +25,6 @@ import java.util.Set;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import EditorTools.*;
-import EditorTools.FindReplace;
 
 public class demomain{
     private JFrame jf = new JFrame("test");
@@ -60,14 +56,6 @@ public class demomain{
     private JMenuItem pasteMenuItem = new JMenuItem("粘贴");
     //private JMenuItem findMenuItem = new JMenuItem("查找/替换");
 
-    //the find and replace bar at the bottom of the jframe
-    private JPanel p = new JPanel(new BorderLayout());
-    private JPanel q = new JPanel(new FlowLayout());
-    private JTextField find_field = new JTextField(23);
-    private JButton find_btn = new JButton("查找");
-    private JTextField replace_field = new JTextField(23);
-    private JButton replace_btn = new JButton("替换");
-    private JButton cancel_btn = new JButton("取消");
 
 
 /***************************** inite ****************************************************/
@@ -78,9 +66,7 @@ public class demomain{
 
 /****************************set JTextPane**********************************************/
         t.setFont(new Font("", Font.BOLD, 16));   //set font size
-        t.getDocument().addDocumentListener(new SyntaxHighlighter(t));// set SyntaxHighlight
         
-
 /********************** set editarea******************************************************/
         scrollPane.setWheelScrollingEnabled(true);   //answer the event of mouse_wheel
 
@@ -106,25 +92,10 @@ public class demomain{
         edit.add(insertMenuItem);
         //edit.add(findMenuItem);
 
-
-        q.add(find_field);
-        q.add(find_btn);
-        q.add(cancel_btn);
-        q.add(replace_field);
-        q.add(replace_btn);
-        
-
-        p.add(q, BorderLayout.SOUTH);
-        jf.add(p);
-        jf.setContentPane(p);
-        jf.setLocationRelativeTo(null);
-
-
-            
+        jf.setLocationRelativeTo(null);    
         jf.setJMenuBar(menubar);   //add the menubar
         jf.add(scrollPane);         //add the scrollpane
         jf.setVisible(true);        //set unvisible
-
 
 
         openMenuItem.addActionListener(new openListener());
@@ -133,15 +104,9 @@ public class demomain{
 
         buildMenuItem.addActionListener(new newListener());
 
-        find_btn.addActionListener(new findListener());
-
-        cancel_btn.addActionListener(new cancelListener());
-
-        replace_btn.addActionListener(new replaceListener());
-
         insertMenuItem.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e){
                 StringBuilder temp = new StringBuilder(t.getText());
                 Date now = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -180,41 +145,6 @@ public class demomain{
         }
     }
 
-    class findListener implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-            try{
-                if(find_field.getText().compareTo("") != 0)
-                    new FindReplace().highlight(t, find_field.getText());
-            }       
-            catch(Exception k){
-                System.out.println("find Wrong");
-            }
-        }
-    }
-
-    class cancelListener implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-            try{
-                new FindReplace().removeHighlights(t);
-                find_field.setText("");
-            }
-            catch(Exception k){
-                System.out.println("cancel Wrong");
-            }
-        }
-    }
-    
-    class replaceListener implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-            try{
-                new FindReplace().replace(t, find_field.getText(), replace_field.getText());
-
-            }
-            catch(Exception k){
-                System.out.println("replace Wrong");
-            }
-        }
-    }
 
     class openListener implements ActionListener{ 
             //define the action handler
